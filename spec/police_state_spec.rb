@@ -1,4 +1,4 @@
-#require 'test_helper'
+require "spec_helper"
 
 RSpec.describe PoliceState do
   it "is a kind of module" do
