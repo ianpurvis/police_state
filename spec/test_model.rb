@@ -5,8 +5,6 @@ class TestModel
   include ActiveModel::Validations
   include PoliceState
 
-  define_attribute_methods :state
-
   def initialize(state: nil)
     @state = state
   end
@@ -15,9 +13,13 @@ class TestModel
     @state
   end
 
-  def state=(val)
-    state_will_change! unless val == @state
-    @state = val
+  def state=(value)
+    if value != attribute_was(:state)
+      attribute_will_change!(:state)
+    else
+      clear_attribute_changes(:state)
+    end
+    @state = value
   end
 
   def save!
