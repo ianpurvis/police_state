@@ -6,6 +6,7 @@ module PoliceState
   extend ActiveSupport::Concern
 
   included do
+    raise ArgumentError, "Including class must implement ActiveModel::Dirty" unless include?(ActiveModel::Dirty)
     extend HelperMethods
   end
 

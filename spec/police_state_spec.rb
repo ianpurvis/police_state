@@ -1,7 +1,15 @@
 require "spec_helper"
 
 RSpec.describe PoliceState do
-  it "is a kind of module" do
-    expect(PoliceState).to be_kind_of(Module)
+  describe "inclusion" do
+    context "when class does not include ActiveModel::Dirty" do
+      it "raises an ArgumentError" do
+        expect {
+          Class.new do
+            include PoliceState
+          end
+        }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
