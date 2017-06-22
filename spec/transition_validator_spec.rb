@@ -7,11 +7,66 @@ RSpec.describe TransitionValidator do
     TestModel.clear_validators!
   end
 
-  describe "#check_validity!" do
-    describe "when options do not include :from or :to state" do
+  describe ".initialize" do
+    context "when options include :arguments, :from, and :to" do
+      it "creates a new validator" do
+        validator = TransitionValidator.new(
+          attributes: :state,
+          from: :state_one,
+          to: :state_two
+        )
+        expect(validator.attributes).to include(:state)
+        expect(validator.options).to include(from: :state_one, to: :state_two)
+      end
+    end
+
+    context "when options do not include :from" do
       it "raises an ArgumentError" do
         expect {
-          TestModel.validates_transition_of :state
+          TransitionValidator.new(attributes: :state, to: :state_two)
+        }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when options do not include :to state" do
+      it "raises an ArgumentError" do
+        expect {
+          TransitionValidator.new(attributes: :state, from: :state_one)
+        }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when :from is an array" do
+      it "creates a new validator" do
+        validator = TransitionValidator.new(
+          attributes: :state,
+          from: [
+            :state_one,
+            :state_two
+          ],
+          to: :state_three
+        )
+        expect(validator.options).to include(
+          from: [
+            :state_one,
+            :state_two
+          ],
+          to: :state_three
+        )
+      end
+    end
+
+    context "when :to is an array" do
+      it "raises an ArgumentError" do
+        expect {
+          TransitionValidator.new(
+            attributes: :state,
+            from: :state_one,
+            to: [
+              :state_two,
+              :state_three
+            ]
+          )
         }.to raise_error(ArgumentError)
       end
     end
