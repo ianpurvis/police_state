@@ -10,11 +10,14 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
 group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'rspec-rails'
+end
+
+group :test do
+  gem 'simplecov', :require => false
 end
