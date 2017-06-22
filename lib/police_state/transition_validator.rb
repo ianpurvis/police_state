@@ -20,9 +20,3 @@ class TransitionValidator < ActiveModel::EachValidator
       !record.attribute_transitioned_from_any_of?(attr_name, options[:from])
   end
 end
-
-module HelperMethods
-  def validates_transition_of(*attr_names)
-    validates_with TransitionValidator, _merge_attributes(attr_names)
-  end
-end

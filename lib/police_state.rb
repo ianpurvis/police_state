@@ -1,13 +1,14 @@
 require "active_model"
 require "active_support/core_ext/array/wrap.rb"
 require "police_state/transition_validator"
+require "police_state/validation_helpers"
 
 module PoliceState
   extend ActiveSupport::Concern
 
   included do
     raise ArgumentError, "Including class must implement ActiveModel::Dirty" unless include?(ActiveModel::Dirty)
-    extend HelperMethods
+    extend ValidationHelpers
   end
 
   def attribute_transitioned_to?(attr_name, state)

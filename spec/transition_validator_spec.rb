@@ -3,10 +3,6 @@ require "test_model"
 
 RSpec.describe TransitionValidator do
 
-  after do
-    TestModel.clear_validators!
-  end
-
   describe ".initialize" do
     context "when options include :arguments, :from, and :to" do
       it "creates a new validator" do
