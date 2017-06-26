@@ -1,6 +1,10 @@
 require "spec_helper"
 
-RSpec.describe TransitionValidator do
+RSpec.describe PoliceState::TransitionValidator do
+
+  before(:all) do
+    TransitionValidator = PoliceState::TransitionValidator
+  end
 
   describe ".initialize" do
     context "when options include :arguments, :from, and :to" do

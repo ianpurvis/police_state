@@ -1,4 +1,4 @@
-module TransitionHelpers
+module PoliceState::TransitionHelpers
   extend ActiveSupport::Concern
   include ActiveModel::AttributeMethods
 

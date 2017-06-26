@@ -8,7 +8,7 @@ module PoliceState
   extend ActiveSupport::Concern
 
   included do
-    include TransitionHelpers
-    extend ValidationHelpers
+    include PoliceState::TransitionHelpers
+    extend PoliceState::ValidationHelpers
   end
 end

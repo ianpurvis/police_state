@@ -1,4 +1,4 @@
-class TransitionValidator < ActiveModel::EachValidator
+class PoliceState::TransitionValidator < ActiveModel::EachValidator
 
   def check_validity!
     raise ArgumentError, "Options must include :from" unless options.include?(:from)

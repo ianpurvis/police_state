@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe TransitionHelpers do
+RSpec.describe PoliceState::TransitionHelpers do
   let(:attribute) { :state }
 
   describe "#attribute_transitioned?" do
