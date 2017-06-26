@@ -16,7 +16,7 @@ class TransitionValidator < ActiveModel::EachValidator
   private
 
   def transition_allowed?(record, attr_name)
-    record.attribute_transitioned_to?(attr_name, options[:to]) ^
-      !record.attribute_transitioned_from_any_of?(attr_name, options[:from])
+    record.attribute_transitioning?(attr_name, options.slice(:to)) ^
+      !record.attribute_transitioning?(attr_name, options.slice(:from))
   end
 end
