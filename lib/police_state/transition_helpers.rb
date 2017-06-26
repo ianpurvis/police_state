@@ -1,4 +1,10 @@
 module TransitionHelpers
+  extend ActiveSupport::Concern
+  include ActiveModel::AttributeMethods
+
+  included do
+    attribute_method_suffix "_transitioned?", "_transitioning?"
+  end
 
   def attribute_transitioned?(attr, options={})
     !!previous_changes_include?(attr) &&

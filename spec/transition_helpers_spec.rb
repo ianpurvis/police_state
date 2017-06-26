@@ -110,4 +110,19 @@ RSpec.describe TransitionHelpers do
       end
     end
   end
+
+  describe ".define_attribute_methods" do
+
+    before do
+      TestModel.define_attribute_methods :state
+    end
+
+    it "defines _transitioned? suffix methods" do
+      expect(TestModel.attribute_method?(:state_transitioned?)).to eq(true)
+    end
+
+    it "defines _transitioning? suffix methods" do
+      expect(TestModel.attribute_method?(:state_transitioning?)).to eq(true)
+    end
+  end
 end
