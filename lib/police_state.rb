@@ -8,7 +8,6 @@ module PoliceState
   extend ActiveSupport::Concern
 
   included do
-    raise ArgumentError, "Including class must implement ActiveModel::Dirty" unless include?(ActiveModel::Dirty)
     include TransitionHelpers
     extend ValidationHelpers
   end

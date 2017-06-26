@@ -3,6 +3,7 @@ module TransitionHelpers
   include ActiveModel::AttributeMethods
 
   included do
+    raise ArgumentError, "Including class must implement ActiveModel::Dirty" unless include?(ActiveModel::Dirty)
     attribute_method_suffix "_transitioned?", "_transitioning?"
   end
 

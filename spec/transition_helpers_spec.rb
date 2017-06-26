@@ -60,6 +60,7 @@ RSpec.describe TransitionHelpers do
     end
   end
 
+
   describe "#attribute_transitioning?" do
     context "given a model where attribute has changed" do
       let(:model) {
@@ -99,7 +100,6 @@ RSpec.describe TransitionHelpers do
       end
     end
 
-
     context "given a model where attribute has not changed" do
       let(:model) { TestModel.new }
 
@@ -111,8 +111,8 @@ RSpec.describe TransitionHelpers do
     end
   end
 
-  describe ".define_attribute_methods" do
 
+  describe ".define_attribute_methods" do
     before do
       TestModel.define_attribute_methods :state
     end
@@ -123,6 +123,19 @@ RSpec.describe TransitionHelpers do
 
     it "defines _transitioning? suffix methods" do
       expect(TestModel.attribute_method?(:state_transitioning?)).to eq(true)
+    end
+  end
+
+
+  describe "inclusion" do
+    context "when class does not include ActiveModel::Dirty" do
+      it "raises an ArgumentError" do
+        expect {
+          Class.new do
+            include PoliceState
+          end
+        }.to raise_error(ArgumentError)
+      end
     end
   end
 end
