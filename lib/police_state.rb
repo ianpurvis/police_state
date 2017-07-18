@@ -1,4 +1,5 @@
 require "active_model"
+require "active_support/core_ext/array/wrap.rb"
 require "active_support/core_ext/hash/slice.rb"
 require "police_state/transition_helpers"
 require "police_state/transition_validator"

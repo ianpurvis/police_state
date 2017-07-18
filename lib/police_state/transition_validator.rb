@@ -15,8 +15,16 @@ class PoliceState::TransitionValidator < ActiveModel::EachValidator
 
   private
 
+  def destination
+    options[:to]
+  end
+
+  def origins
+    options[:from].instance_eval {nil? ? [nil] : Array.wrap(self)}
+  end
+
   def transition_allowed?(record, attr_name)
-    record.attribute_transitioning?(attr_name, options.slice(:to)) ^
-      !record.attribute_transitioning?(attr_name, options.slice(:from))
+    record.attribute_transitioning?(attr_name, to: destination) ^
+      origins.none? {|origin| record.attribute_transitioning?(attr_name, from: origin)}
   end
 end
