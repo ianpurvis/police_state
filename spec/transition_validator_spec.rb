@@ -101,8 +101,8 @@ RSpec.describe PoliceState::TransitionValidator do
           }
         }
 
-        it "adds an error to the record" do
-          expect(record.errors.messages).to include(:state)
+        it "does not add an error to the record" do
+          expect(record.errors.messages).to_not include(:state)
         end
       end
 

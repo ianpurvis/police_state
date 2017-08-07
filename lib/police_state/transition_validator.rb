@@ -24,7 +24,7 @@ class PoliceState::TransitionValidator < ActiveModel::EachValidator
   end
 
   def transition_allowed?(record, attr_name)
-    record.attribute_transitioning?(attr_name, to: destination) ^
-      origins.none? {|origin| record.attribute_transitioning?(attr_name, from: origin)}
+    !record.attribute_transitioning?(attr_name, to: destination) ||
+      origins.any? {|origin| record.attribute_transitioning?(attr_name, from: origin)}
   end
 end
