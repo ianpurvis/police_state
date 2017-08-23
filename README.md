@@ -1,4 +1,4 @@
-# PoliceState
+# Police State
 Lightweight state machine for Active Record and Active Model.
 
 
@@ -36,37 +36,37 @@ One aspect of Police State that will feel different than other ruby state machin
 
 ```ruby
 model = Model.new(status: :complete)
-=> #<Model:0x007fa94844d088 @status=:complete>
+# => #<Model:0x007fa94844d088 @status=:complete>
 
 model.status_transitioning?(from: nil)
-=> true
+# => true
 
 model.status_transitioning?(to: :complete)
-=> true
+# => true
 
 model.valid?
-=> false
+# => false
 
 model.errors.to_hash
-=> {:status=>["can't transition to complete"]}
+# => {:status=>["can't transition to complete"]}
 
 model.save
-=> false
+# => false
 
 model.save!
-=> ActiveRecord::RecordInvalid: Validation failed: Status can't transition to complete
+# => ActiveRecord::RecordInvalid: Validation failed: Status can't transition to complete
 
 model.status = :queued
-=> :queued
+# => :queued
 
 model.valid?
-=> true
+# => true
 
 model.save
-=> true
+# => true
 
 model.status_transitioned?(from: nil, to: :queued)
-=> true
+# => true
 
 ```
 
@@ -105,7 +105,7 @@ The bang methods defined by `ActiveRecord::Enum` work as well:
 
 ```ruby
 model.active!
-=> ActiveRecord::RecordInvalid: Validation failed: Status can't transition to active
+# => ActiveRecord::RecordInvalid: Validation failed: Status can't transition to active
 ```
 
 ### Validation Logic
