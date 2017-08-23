@@ -1,10 +1,10 @@
 module PoliceState
 
-  # == Police State \Transition Helpers
+  # == Police State Transition Helpers
   #
   # Provides a way to monitor attribute state transitions for Active Record and Active Model objects.
   #
-  # If using with Active Model, make sure that your class implements +ActiveModel::Dirty+.
+  # Note: If using with Active Model, make sure that your class implements +ActiveModel::Dirty+.
   module TransitionHelpers
     extend ActiveSupport::Concern
     include ActiveModel::AttributeMethods
