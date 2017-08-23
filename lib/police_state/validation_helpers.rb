@@ -3,7 +3,7 @@ module PoliceState
   # == Police State Validation Helpers
   module ValidationHelpers
 
-    # Validates that the specified attributes are transitioning to a
+    # Validates that the specified attribute is transitioning to a
     # destination state from one or more origin states.
     #
     #   class Model < ActiveRecord::Base
