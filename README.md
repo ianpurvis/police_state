@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ianpurvis/police_state.svg?branch=master)](https://travis-ci.org/ianpurvis/police_state)
+
 # Police State
 Lightweight state machine for Active Record and Active Model.
 
