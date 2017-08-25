@@ -9,4 +9,5 @@ test/dummy/tmp/
 .pryrc
 .DS_Store
 coverage/
+rdoc/
 vendor/bundle/
