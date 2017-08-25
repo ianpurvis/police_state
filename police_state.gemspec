@@ -7,9 +7,9 @@ require "police_state/version"
 Gem::Specification.new do |s|
   s.name        = "police_state"
   s.version     = PoliceState::VERSION
-  s.authors     = ["ipurvis"]
+  s.authors     = ["Ian Purvis"]
   s.email       = ["ian.c.purvis@gmail.com"]
-  s.summary     = "Simple state machining with ActiveRecord."
+  s.summary     = "Lightweight state machine for Active Record and Active Model."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
