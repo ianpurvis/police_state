@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "police_state"
   s.version     = PoliceState::VERSION
   s.authors     = ["Ian Purvis"]
-  s.email       = ["ian.c.purvis@gmail.com"]
+  s.email       = ["ian@purvisresearch.com"]
   s.summary     = "Lightweight state machine for Active Record and Active Model."
   s.license     = "MIT"
 
