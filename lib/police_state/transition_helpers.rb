@@ -32,7 +32,7 @@ module PoliceState
     #  model.status_transitioned?(from: nil, to: :complete)  # => true
     def attribute_transitioned?(attr, options={})
       options = _transform_options_for_attribute(attr, options)
-      !!previous_changes_include?(attr) &&
+      !!previous_changes.include?(attr) &&
         (!options.include?(:to) || options[:to] == previous_changes[attr].last) &&
         (!options.include?(:from) || options[:from] == previous_changes[attr].first)
     end

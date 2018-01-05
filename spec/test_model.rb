@@ -1,15 +1,14 @@
 require "active_model"
 
 class TestModel
-  include ActiveModel::AttributeAssignment
   include ActiveModel::Dirty
   include ActiveModel::Validations
   include PoliceState
 
   attr_reader :state
 
-  def initialize(attributes={})
-    assign_attributes(attributes)
+  def initialize(state: nil)
+    self.state = state
   end
 
   def state=(value)
