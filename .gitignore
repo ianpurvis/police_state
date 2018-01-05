@@ -11,3 +11,4 @@ test/dummy/tmp/
 coverage/
 rdoc/
 vendor/bundle/
+gemfiles/*.lock
