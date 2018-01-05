@@ -14,10 +14,18 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require "pry"
-require "simplecov"; SimpleCov.start { add_filter "spec" }
-require "police_state"
+def require_optional(name)
+  require(name)
+rescue LoadError
+  puts "require_optional: could not load #{name}"
+end
 
+require_optional "pry"
+require_optional "simplecov"
+
+SimpleCov.start { add_filter "spec" } if defined?(SimpleCov)
+
+require "police_state"
 require "test_model"
 
 RSpec.configure do |config|
