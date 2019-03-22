@@ -15,7 +15,7 @@ class TestModel
     if value != attribute_was(:state)
       attribute_will_change!(:state)
     else
-      clear_attribute_changes(:state)
+      clear_attribute_changes([:state])
     end
     @state = value
   end
