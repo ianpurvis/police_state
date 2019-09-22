@@ -7,7 +7,7 @@ branches:
 bundler_args: --binstubs --jobs 3 --retry 3
 cache: bundler
 gemfile:
-  - gemfiles/Gemfile-rails_4.2
+  - gemfiles/Gemfile-rails-4.2
   - gemfiles/Gemfile-rails-5.0
   - gemfiles/Gemfile-rails-5.1
   - gemfiles/Gemfile-rails-5.2
