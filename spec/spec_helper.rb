@@ -17,6 +17,12 @@
 require "pry"
 require "simplecov"
 SimpleCov.start { add_filter "spec" }
+
+if ENV['CODECOV_TOKEN']
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
 require "police_state"
 require "test_model"
 
