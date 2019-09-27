@@ -17,7 +17,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.1, >= 2.1.8)
     byebug (11.0.1)
-    codecov (0.1.14)
+    codecov (0.1.15)
       json
       simplecov
       url
