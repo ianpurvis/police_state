@@ -1,60 +1,97 @@
 require "spec_helper"
 
 RSpec.describe PoliceState::TransitionHelpers do
-  let(:attribute) { :state }
+  let(:model) { TestModel.new }
 
   describe "#attribute_transitioned?" do
-    context "given a model where attribute previously changed" do
-      let(:model) {
-        TestModel.new.tap {|m|
-          m.state = :state_one
-          m.save!
-        }
-      }
+    context 'given an attribute' do
+      let(:attribute) { :state }
 
-      context "when options do not include :to or :from" do
-        it "returns true" do
-          expect(model.attribute_transitioned?(:state)).to eq(true)
+      context 'when attribute changed before the model was saved' do
+        before do
+          model.state = :example_state
+          model.save!
+        end
+        it 'returns true' do
+          expect(model.attribute_transitioned?(attribute)).to eq(true)
         end
       end
-
-      context "when :to equals previously changed state" do
-        it "returns true" do
-          expect(model.attribute_transitioned?(attribute, to: :state_one)).to eq(true)
+      context 'when attribute did not change before the model was saved' do
+        before do
+          model.save!
         end
-      end
-
-      context "when :to does not equal previously changed state" do
-        it "returns false" do
-          expect(model.attribute_transitioned?(attribute, to: :state_two)).to eq(false)
-        end
-      end
-
-      context "when :from equals previously original state" do
-        it "returns true" do
-          expect(model.attribute_transitioned?(attribute, from: nil)).to eq(true)
-        end
-      end
-
-      context "when :from does not equal previously original state" do
-        it "returns false" do
-          expect(model.attribute_transitioned?(attribute, from: :state_two)).to eq(false)
+        it 'returns false' do
+          expect(model.attribute_transitioned?(attribute)).to eq(false)
         end
       end
     end
+    context 'given an attribute and :to' do
+      let(:attribute) { :state }
+      let(:to) { :example_state }
 
-    context "given a model where attribute has not previously changed" do
-      let(:model) {
-        TestModel.new.tap {|m|
-          m.state = :state_one
-          m.save!
-          m.save!
-        }
-      }
+      context 'when attribute changed before the model was saved' do
+        context 'when new value equaled :to' do
+          before do
+            model.state = :example_state
+            model.save!
+          end
+          it 'returns true' do
+            expect(model.attribute_transitioned?(attribute, to: to)).to eq(true)
+          end
+        end
+        context 'when new value did not equal :to' do
+          before do
+            model.state = :other
+            model.save!
+          end
+          it 'returns false' do
+            expect(model.attribute_transitioned?(attribute, to: to)).to eq(false)
+          end
+        end
+      end
+      context 'when attribute did not change before the model was saved' do
+        before do
+          model.save!
+        end
+        it 'returns false' do
+          expect(model.attribute_transitioned?(attribute, to: to)).to eq(false)
+        end
+      end
+    end
+    context 'given an attribute and :from' do
+      let(:attribute) { :state }
+      let(:from) { :example_state }
 
-      context "when options do not include :to or :from" do
-        it "returns false" do
-          expect(model.attribute_transitioned?(attribute)).to eq(false)
+      context 'when attribute changed before the model was saved' do
+        context 'when original value equaled :from' do
+          before do
+            model.state = :example_state
+            model.save!
+            model.state = :other
+            model.save!
+          end
+          it 'returns true'do
+            expect(model.attribute_transitioned?(attribute, from: from)).to eq(true)
+          end
+        end
+        context 'when original value did not equal :from' do
+          before do
+            model.state = :other
+            model.save!
+            model.state = :example_state
+            model.save!
+          end
+          it 'returns false' do
+            expect(model.attribute_transitioned?(attribute, from: from)).to eq(false)
+          end
+        end
+      end
+      context 'when attribute did not change before the model was saved' do
+        before do
+          model.save!
+        end
+        it 'returns false' do
+          expect(model.attribute_transitioned?(attribute, from: from)).to eq(false)
         end
       end
     end
@@ -62,50 +99,83 @@ RSpec.describe PoliceState::TransitionHelpers do
 
 
   describe "#attribute_transitioning?" do
-    context "given a model where attribute has changed" do
-      let(:model) {
-        TestModel.new.tap {|m|
-          m.state = :state_one
-        }
-      }
+    context 'given an attribute' do
+      let(:attribute) { :state }
 
-      context "when options do not include :to or :from" do
-        it "returns true" do
-          expect(model.attribute_transitioning?(:state)).to eq(true)
+      context 'when attribute has changed' do
+        before do
+          model.state = :example_state
+        end
+        it 'returns true' do
+          expect(model.attribute_transitioning?(attribute)).to eq(true)
         end
       end
-
-      context "when :to equals changed state" do
-        it "returns true" do
-          expect(model.attribute_transitioning?(attribute, to: :state_one)).to eq(true)
+      context 'when attribute has not changed' do
+        before do
+          model.save!
         end
-      end
-
-      context "when :to does not equal changed state" do
-        it "returns false" do
-          expect(model.attribute_transitioning?(attribute, to: :state_two)).to eq(false)
-        end
-      end
-
-      context "when :from equals original state" do
-        it "returns true" do
-          expect(model.attribute_transitioning?(attribute, from: nil)).to eq(true)
-        end
-      end
-
-      context "when :from does not equal original state" do
-        it "returns false" do
-          expect(model.attribute_transitioning?(attribute, from: :state_two)).to eq(false)
+        it 'returns false' do
+          expect(model.attribute_transitioning?(attribute)).to eq(false)
         end
       end
     end
+    context 'given an attribute and :to' do
+      let(:attribute) { :state }
+      let(:to) { :example_state }
 
-    context "given a model where attribute has not changed" do
-      let(:model) { TestModel.new }
+      context 'when attribute has changed' do
+        context 'when new value equals :to' do
+          before do
+            model.state = :example_state
+          end
+          it 'returns true' do
+            expect(model.attribute_transitioning?(attribute, to: to)).to eq(true)
+          end
+        end
+        context 'when new value does not equal :to' do
+          before do
+            model.state = :other
+          end
+          it 'returns false' do
+            expect(model.attribute_transitioning?(attribute, to: to)).to eq(false)
+          end
+        end
+      end
+      context 'when attribute has not changed' do
+        it 'returns false' do
+          expect(model.attribute_transitioning?(attribute, to: to)).to eq(false)
+        end
+      end
+    end
+    context 'given an attribute and :from' do
+      let(:attribute) { :state }
+      let(:from) { :example_state }
 
-      context "when options do not include :to or :from" do
-        it "returns false" do
-          expect(model.attribute_transitioning?(attribute)).to eq(false)
+      context 'when attribute has changed' do
+        context 'when original value equals :from' do
+          before do
+            model.state = :example_state
+            model.save!
+            model.state = :other
+          end
+          it 'returns true' do
+            expect(model.attribute_transitioning?(attribute, from: from)).to eq(true)
+          end
+        end
+        context 'when original value does not equal :from' do
+          before do
+            model.state = :other
+            model.save!
+            model.state = :example_state
+          end
+          it 'returns false' do
+            expect(model.attribute_transitioning?(attribute, from: from)).to eq(false)
+          end
+        end
+      end
+      context 'when attribute has not changed' do
+        it 'returns false' do
+          expect(model.attribute_transitioning?(attribute, from: from)).to eq(false)
         end
       end
     end
@@ -127,14 +197,11 @@ RSpec.describe PoliceState::TransitionHelpers do
   end
 
 
-  describe "inclusion" do
+  describe ".included" do
     context "when class does not include ActiveModel::Dirty" do
       it "raises an ArgumentError" do
-        expect {
-          Class.new do
-            include PoliceState
-          end
-        }.to raise_error(ArgumentError)
+        expect { Class.new { include PoliceState } }
+          .to raise_error(ArgumentError)
       end
     end
   end
