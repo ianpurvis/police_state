@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe PoliceState do
 
-  describe "inclusion" do
+  describe ".included" do
     it "includes TransitionHelpers" do
       expect(TestModel).to include(PoliceState::TransitionHelpers)
     end
