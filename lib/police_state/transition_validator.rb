@@ -16,17 +16,17 @@ module PoliceState
 
     private
 
-    def destination
+    def allowed_destination
       options[:to]
     end
 
-    def origins
+    def allowed_origins
       options[:from].instance_eval {nil? ? [nil] : Array.wrap(self)}
     end
 
     def transition_allowed?(record, attr_name)
-      !record.attribute_transitioning?(attr_name, to: destination) ||
-        origins.any? {|origin| record.attribute_transitioning?(attr_name, from: origin)}
+      !record.attribute_transitioning?(attr_name, to: allowed_destination) ||
+        allowed_origins.any? {|origin| record.attribute_transitioning?(attr_name, from: origin)}
     end
   end
 end
