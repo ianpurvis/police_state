@@ -23,8 +23,20 @@ if ENV['CODECOV_TOKEN']
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
+require "active_record"
+ActiveRecord::Base.establish_connection(
+  adapter: :nulldb,
+  schema: 'spec/schema.rb'
+)
+
+require "activerecord-nulldb-adapter"
+NullDB.configure do |ndb|
+  ndb.project_root = "."
+end
+
 require "police_state"
 require "test_model"
+require "test_record"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
