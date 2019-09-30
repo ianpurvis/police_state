@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", ">= 4.2.0"
 
   s.add_development_dependency "activerecord"
+  s.add_development_dependency "activerecord-nulldb-adapter"
   s.add_development_dependency "byebug"
   s.add_development_dependency "codecov"
   s.add_development_dependency "pry"
