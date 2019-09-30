@@ -6,45 +6,61 @@ RSpec.describe PoliceState::TransitionValidator do
     TransitionValidator = PoliceState::TransitionValidator
   end
 
-  describe ".initialize" do
-    context "when options include :arguments, :from, and :to" do
-      it "creates a new validator" do
-        validator = TransitionValidator.new(
+  describe ".initialize(options)" do
+    context "when options include :attributes, :from, and :to" do
+      let(:options) do
+        {
           attributes: :state,
           from: :state_one,
           to: :state_two
-        )
+        }
+      end
+      it "creates a new validator" do
+        validator = TransitionValidator.new(options)
         expect(validator.attributes).to include(:state)
         expect(validator.options).to include(from: :state_one, to: :state_two)
       end
     end
 
     context "when options do not include :from" do
+      let(:options) do
+        {
+          attributes: :state,
+          to: :state_two
+        }
+      end
       it "raises an ArgumentError" do
-        expect {
-          TransitionValidator.new(attributes: :state, to: :state_two)
-        }.to raise_error(ArgumentError)
+        expect { TransitionValidator.new(options) }
+          .to raise_error(ArgumentError)
       end
     end
 
     context "when options do not include :to state" do
+      let(:options) do
+        {
+          attributes: :state,
+          from: :state_one
+        }
+      end
       it "raises an ArgumentError" do
-        expect {
-          TransitionValidator.new(attributes: :state, from: :state_one)
-        }.to raise_error(ArgumentError)
+        expect { TransitionValidator.new(options) }
+          .to raise_error(ArgumentError)
       end
     end
 
     context "when :from is an array" do
-      it "creates a new validator" do
-        validator = TransitionValidator.new(
+      let(:options) do
+        {
           attributes: :state,
           from: [
             :state_one,
             :state_two
           ],
           to: :state_three
-        )
+        }
+      end
+      it "creates a new validator" do
+        validator = TransitionValidator.new(options)
         expect(validator.options).to include(
           from: [
             :state_one,
@@ -56,29 +72,32 @@ RSpec.describe PoliceState::TransitionValidator do
     end
 
     context "when :to is an array" do
+      let(:options) do
+        {
+          attributes: :state,
+          from: :state_one,
+          to: [
+            :state_two,
+            :state_three
+          ]
+        }
+      end
       it "raises an ArgumentError" do
-        expect {
-          TransitionValidator.new(
-            attributes: :state,
-            from: :state_one,
-            to: [
-              :state_two,
-              :state_three
-            ]
-          )
-        }.to raise_error(ArgumentError)
+        expect { TransitionValidator.new(options) }
+          .to raise_error(ArgumentError)
       end
     end
   end
 
-  describe "#validate_each" do
-
-    before :each do
-      subject.validate_each(record, :state, record.state)
-    end
+  describe "#validate_each(record, attribute, value)" do
 
     RSpec.shared_examples "#validate_each" do |origin_state, destination_state|
-      context "when attribute transitions :from and :to" do
+
+      before :each do
+        subject.validate_each(record, :state, record.state)
+      end
+
+      context "when attribute value transitions :from and :to" do
         let(:record) {
           TestModel.new.tap {|m|
             m.state = origin_state
@@ -92,7 +111,7 @@ RSpec.describe PoliceState::TransitionValidator do
         end
       end
 
-      context "when attribute transitions :from but not :to" do
+      context "when attribute value transitions :from but not :to" do
         let(:record) {
           TestModel.new.tap {|m|
             m.state = origin_state
@@ -106,7 +125,7 @@ RSpec.describe PoliceState::TransitionValidator do
         end
       end
 
-      context "when attribute transitions :to but not :from" do
+      context "when attribute value transitions :to but not :from" do
         let(:record) {
           TestModel.new.tap {|m|
             m.state = :other
@@ -120,7 +139,7 @@ RSpec.describe PoliceState::TransitionValidator do
         end
       end
 
-      context "when attribute transitions to neither :from or :to" do
+      context "when attribute value transitions to neither :from or :to" do
         let(:record) {
           TestModel.new.tap {|m|
             m.state = :other
@@ -134,7 +153,7 @@ RSpec.describe PoliceState::TransitionValidator do
         end
       end
 
-      context "when attribute does not transition" do
+      context "when attribute value does not transition" do
         let(:record) {
           TestModel.new.tap {|m|
             m.state = destination_state
@@ -150,7 +169,7 @@ RSpec.describe PoliceState::TransitionValidator do
       end
     end
 
-    context "given a :from state and :to state" do
+    context "given a validator configured with a single :from state" do
       subject {
         TransitionValidator.new(
           attributes: :state,
@@ -162,7 +181,7 @@ RSpec.describe PoliceState::TransitionValidator do
       include_examples "#validate_each", :state_one, :state_two
     end
 
-    context "given multiple :from states and :to state" do
+    context "given a validator configured with multiple :from states" do
       subject {
         TransitionValidator.new(
           attributes: :state,
