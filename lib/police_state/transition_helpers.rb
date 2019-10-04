@@ -31,7 +31,7 @@ module PoliceState
     #  model.status_transitioned?(to: "complete")            # => true
     #  model.status_transitioned?(from: nil, to: :complete)  # => true
     def attribute_transitioned?(attr, options={})
-      options = _transform_options_for_attribute(attr, options)
+      options = _type_cast_transition_options(attr, options)
       !!previous_changes.include?(attr) &&
         (!options.include?(:to) || options[:to] == previous_changes[attr].last) &&
         (!options.include?(:from) || options[:from] == previous_changes[attr].first)
@@ -52,20 +52,22 @@ module PoliceState
     #  model.status_transitioning?(to: "complete")            # => true
     #  model.status_transitioning?(from: nil, to: :complete)  # => true
     def attribute_transitioning?(attr, options={})
-      options = _transform_options_for_attribute(attr, options)
+      options = _type_cast_transition_options(attr, options)
       attribute_changed?(attr, options)
     end
 
 
     private
 
-    # Facilitates easier change checking for ActiveRecord::Enum attributes
-    # by casting any symbolized :to and :from values into their native strings.
-    def _transform_options_for_attribute(attr, options={})
-      return options unless self.class.respond_to?(:attribute_types)
-      options.transform_values {|value|
-        self.class.attribute_types.with_indifferent_access[attr].cast(value)
-      }
+    # Returns +true+ if +attribute+ is an ActiveRecord::Enum, otherwise +false+.
+    def _attribute_enum?(attr)
+      return false unless self.class.respond_to?(:defined_enums)
+      self.class.defined_enums.with_indifferent_access.include?(attr)
+    end
+
+    # Casts +:to+ and +:from+ to string when attribute is an ActiveRecord::Enum.
+    def _type_cast_transition_options(attr, options={})
+      _attribute_enum?(attr) ? options.transform_values(&:to_s) : options
     end
   end
 end
