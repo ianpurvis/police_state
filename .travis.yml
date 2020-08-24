@@ -14,12 +14,7 @@ gemfile:
   - gemfiles/Gemfile-rails-5.2
   - gemfiles/Gemfile-rails-6.0
 language: ruby
-matrix:
-  exclude:
-    - rvm: 2.4
-      gemfile: gemfiles/Gemfile-rails-6.0
 rvm:
-  - 2.4
   - 2.5
   - 2.6
 script: "bin/rspec"
