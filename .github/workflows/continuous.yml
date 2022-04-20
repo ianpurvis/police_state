@@ -3,7 +3,7 @@ name: continuous
 on:
   push:
     branches:
-      - master
+      - trunk
   pull_request:
     types:
       - opened
