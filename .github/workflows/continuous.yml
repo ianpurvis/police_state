@@ -21,7 +21,6 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - run: bundle exec rake
-      - run: bundle exec rpsec
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     strategy:
