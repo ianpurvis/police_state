@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/ianpurvis/police_state.svg?branch=master)](https://travis-ci.com/ianpurvis/police_state)
-[![codecov](https://codecov.io/gh/ianpurvis/police_state/branch/master/graph/badge.svg)](https://codecov.io/gh/ianpurvis/police_state)
-[![Doc Status](http://inch-ci.org/github/ianpurvis/police_state.svg?branch=master)](http://inch-ci.org/github/ianpurvis/police_state)
+[![Build Status](https://travis-ci.com/ianpurvis/police_state.svg?branch=trunk)](https://travis-ci.com/ianpurvis/police_state)
+[![codecov](https://codecov.io/gh/ianpurvis/police_state/branch/trunk/graph/badge.svg)](https://codecov.io/gh/ianpurvis/police_state)
+[![Doc Status](http://inch-ci.org/github/ianpurvis/police_state.svg?branch=trunk)](http://inch-ci.org/github/ianpurvis/police_state)
 
 # Police State
 Lightweight state machine for Active Record and Active Model.
