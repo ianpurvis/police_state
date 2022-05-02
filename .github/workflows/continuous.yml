@@ -32,3 +32,4 @@ jobs:
           - 3.1
         gemfile:
           - gemfiles/Gemfile-rails-6.0
+          - gemfiles/Gemfile-rails-6.1
