@@ -28,5 +28,7 @@ jobs:
       matrix:
         ruby:
           - 2.7
+          - 3.0
+          - 3.1
         gemfile:
           - gemfiles/Gemfile-rails-6.0
