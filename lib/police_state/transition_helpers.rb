@@ -53,7 +53,7 @@ module PoliceState
     #  model.status_transitioning?(from: nil, to: :complete)  # => true
     def attribute_transitioning?(attr, options={})
       options = _type_cast_transition_options(attr, options)
-      !!attribute_changed?(attr, options)
+      !!attribute_changed?(attr, **options)
     end
 
 
