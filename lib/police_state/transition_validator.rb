@@ -9,7 +9,7 @@ module PoliceState
 
     def validate_each(record, attr_name, value)
       unless transition_allowed?(record, attr_name)
-        record.errors.add(attr_name, "can't transition to #{value}", options)
+        record.errors.add(attr_name, "can't transition to #{value}", **options)
       end
     end
 
