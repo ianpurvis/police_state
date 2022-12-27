@@ -19,12 +19,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "activerecord"
   s.add_development_dependency "activerecord-nulldb-adapter"
-  s.add_development_dependency "byebug"
   s.add_development_dependency "codecov"
   s.add_development_dependency "debug", ">= 1.0.0"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "pry-rails"
-  s.add_development_dependency "pry-byebug"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "simplecov"
