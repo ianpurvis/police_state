@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ianpurvis/police_state.svg?branch=trunk)](https://travis-ci.com/ianpurvis/police_state)
+[![Build Status](https://github.com/ianpurvis/police_state/actions/workflows/continuous.yml/badge.svg)](https://github.com/ianpurvis/police_state/actions/workflows/continuous.yml)
 [![codecov](https://codecov.io/gh/ianpurvis/police_state/branch/trunk/graph/badge.svg)](https://codecov.io/gh/ianpurvis/police_state)
 [![Doc Status](http://inch-ci.org/github/ianpurvis/police_state.svg?branch=trunk)](http://inch-ci.org/github/ianpurvis/police_state)
 
