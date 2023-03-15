@@ -13,7 +13,7 @@ GEM
     activerecord (7.0.4.3)
       activemodel (= 7.0.4.3)
       activesupport (= 7.0.4.3)
-    activerecord-nulldb-adapter (0.8.0)
+    activerecord-nulldb-adapter (0.9.0)
       activerecord (>= 5.2.0, < 7.1)
     activesupport (7.0.4.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
