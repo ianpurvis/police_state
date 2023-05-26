@@ -17,6 +17,9 @@
 require "simplecov"
 SimpleCov.start { add_filter "spec" }
 
+require 'simplecov-cobertura'
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
 require "active_record"
 ActiveRecord::Base.establish_connection(
   adapter: :nulldb,
