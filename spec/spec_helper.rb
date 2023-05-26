@@ -17,10 +17,8 @@
 require "simplecov"
 SimpleCov.start { add_filter "spec" }
 
-if ENV['CODECOV_TOKEN']
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
+require 'simplecov-cobertura'
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
 require "active_record"
 ActiveRecord::Base.establish_connection(
